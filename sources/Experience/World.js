@@ -3,42 +3,54 @@ import Experience from './Experience.js'
 import Gradient from './Gradient.js'
 import Base from './Base.js'
 import Wood from './Wood.js'
+import Marble from './Marble.js'
+import Bronze from './Bronze.js'
 
 export default class World {
-    constructor(_options) {
-        this.experience = new Experience()
-        this.config = this.experience.config
-        this.scene = this.experience.scene
-        this.resources = this.experience.resources
+  constructor(_options) {
+    this.experience = new Experience()
+    this.config = this.experience.config
+    this.scene = this.experience.scene
+    this.resources = this.experience.resources
 
-        this.resources.on('groupEnd', _group => {
-            if (_group.name === 'base') {
-                // this.setGradient()
-                // this.setBase()
-                this.setWood()
-            }
-        })
-    }
+    this.resources.on('groupEnd', _group => {
+      if (_group.name === 'base') {
+        // this.setGradient()
+        // this.setBase()
+        // this.setWood()
+        // this.setMarble()
+        this.setBronze()
+      }
+    })
+  }
 
-    setGradient() {
-        this.gradient = new Gradient()
-    }
+  setGradient () {
+    this.gradient = new Gradient()
+  }
 
-    setBase() {
-        this.base = new Base()
-    }
+  setBase () {
+    this.base = new Base()
+  }
 
-    setWood() {
-        this.wood = new Wood()
-    }
+  setWood () {
+    this.wood = new Wood()
+  }
 
-    setNavigation() {
-        // todo: this.navigation = new Navigation()
-    }
+  setMarble () {
+    this.marble = new Marble()
+  }
 
-    resize() {}
+  setBronze () {
+    this.bronze = new Bronze()
+  }
 
-    update() {}
+  setNavigation () {
+    // todo: this.navigation = new Navigation()
+  }
 
-    destroy() {}
+  resize () { }
+
+  update () { }
+
+  destroy () { }
 }
