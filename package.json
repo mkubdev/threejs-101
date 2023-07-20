@@ -5,7 +5,22 @@
     "dev": "vite serve --host",
     "build": "vite build",
     "preview": "vite preview",
-    "deploy": "vercel --prod"
+    "deploy": "vercel --prod",
+    "format": "prettier --write \"sources/**/*.js\"",
+    "pre-commit": "lint-staged",
+    "pre-push": "npm run format"
+  },
+  "lint-staged": {
+    "*.{js,ts,jsx,tsx,json,css,scss,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run pre-commit",
+      "pre-push": "npm run pre-push"
+    }
   },
   "dependencies": {
     "gsap": "^3.12.2",
@@ -16,5 +31,9 @@
     "tweakpane": "^3.1.10",
     "vite": "^2.9.12",
     "vite-plugin-glsl": "^0.1.2"
+  },
+  "devDependencies": {
+    "husky": "^8.0.3",
+    "prettier": "^3.0.0"
   }
 }

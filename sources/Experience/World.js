@@ -11,7 +11,7 @@ export default class World {
         this.scene = this.experience.scene
         this.resources = this.experience.resources
 
-        this.resources.on('groupEnd', (_group) => {
+        this.resources.on('groupEnd', _group => {
             if (_group.name === 'base') {
                 // this.setGradient()
                 // this.setBase()
@@ -21,27 +21,24 @@ export default class World {
     }
 
     setGradient() {
-        this.gradient = new Gradient();
+        this.gradient = new Gradient()
     }
 
     setBase() {
-        this.base = new Base();
+        this.base = new Base()
     }
 
     setWood() {
-        this.wood = new Wood();
+        this.wood = new Wood()
     }
 
     setNavigation() {
         // todo: this.navigation = new Navigation()
     }
 
-    resize() {
-    }
+    resize() {}
 
-    update() {
-    }
+    update() {}
 
-    destroy() {
-    }
+    destroy() {}
 }

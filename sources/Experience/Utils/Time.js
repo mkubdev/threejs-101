@@ -1,12 +1,10 @@
 import EventEmitter from './EventEmitter.js'
 
-export default class Time extends EventEmitter
-{
+export default class Time extends EventEmitter {
     /**
      * Constructor
      */
-    constructor()
-    {
+    constructor() {
         super()
 
         this.start = Date.now()
@@ -19,21 +17,18 @@ export default class Time extends EventEmitter
         this.tick()
     }
 
-    play()
-    {
+    play() {
         this.playing = true
     }
 
-    pause()
-    {
+    pause() {
         this.playing = false
     }
 
     /**
      * Tick
      */
-    tick()
-    {
+    tick() {
         this.ticker = window.requestAnimationFrame(this.tick)
 
         const current = Date.now()
@@ -42,13 +37,11 @@ export default class Time extends EventEmitter
         this.elapsed += this.playing ? this.delta : 0
         this.current = current
 
-        if(this.delta > 60)
-        {
+        if (this.delta > 60) {
             this.delta = 60
         }
 
-        if(this.playing)
-        {
+        if (this.playing) {
             this.trigger('tick')
         }
     }
@@ -56,8 +49,7 @@ export default class Time extends EventEmitter
     /**
      * Stop
      */
-    stop()
-    {
+    stop() {
         window.cancelAnimationFrame(this.ticker)
     }
 }

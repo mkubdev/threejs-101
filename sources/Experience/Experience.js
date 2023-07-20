@@ -10,7 +10,7 @@ import Renderer from './Renderer.js'
 import Camera from './Camera.js'
 import World from './World.js'
 
-import { Pane } from 'tweakpane'
+import {Pane} from 'tweakpane'
 
 import assets from './assets.js'
 
@@ -27,7 +27,7 @@ export default class Experience {
         this.targetElement = _options.targetElement
 
         if (!this.targetElement) {
-            console.warn('Missing \'targetElement\' property')
+            console.warn("Missing 'targetElement' property")
             return
         }
 
@@ -56,7 +56,10 @@ export default class Experience {
         this.config.debug = window.location.hash === '#debug'
 
         // Pixel ratio
-        this.config.pixelRatio = Math.min(Math.max(window.devicePixelRatio, 1), 2)
+        this.config.pixelRatio = Math.min(
+            Math.max(window.devicePixelRatio, 1),
+            2
+        )
 
         // Width and height
         const boundings = this.targetElement.getBoundingClientRect()
@@ -65,10 +68,8 @@ export default class Experience {
     }
 
     setDebug() {
-        
         if (this.config.debug) {
-
-            this.debug = new Pane();
+            this.debug = new Pane()
             this.debug.containerElem_.style.width = '320px'
             // this.debug.containerElem_.style.zIndex = '1000'
         }
@@ -89,7 +90,9 @@ export default class Experience {
     }
 
     setRenderer() {
-        this.renderer = new Renderer({ rendererInstance: this.rendererInstance })
+        this.renderer = new Renderer({
+            rendererInstance: this.rendererInstance
+        })
 
         this.targetElement.appendChild(this.renderer.instance.domElement)
 
@@ -105,16 +108,13 @@ export default class Experience {
     }
 
     update() {
-        if (this.stats)
-            this.stats.update()
+        if (this.stats) this.stats.update()
 
         this.camera.update()
 
-        if (this.world)
-            this.world.update()
+        if (this.world) this.world.update()
 
-        if (this.renderer)
-            this.renderer.update()
+        if (this.renderer) this.renderer.update()
 
         window.requestAnimationFrame(() => {
             this.update()
@@ -127,19 +127,17 @@ export default class Experience {
         this.config.width = boundings.width
         this.config.height = boundings.height
 
-        this.config.pixelRatio = Math.min(Math.max(window.devicePixelRatio, 1), 2)
+        this.config.pixelRatio = Math.min(
+            Math.max(window.devicePixelRatio, 1),
+            2
+        )
 
-        if (this.camera)
-            this.camera.resize()
+        if (this.camera) this.camera.resize()
 
-        if (this.renderer)
-            this.renderer.resize()
+        if (this.renderer) this.renderer.resize()
 
-        if (this.world)
-            this.world.resize()
+        if (this.world) this.world.resize()
     }
 
-    destroy() {
-
-    }
+    destroy() {}
 }
