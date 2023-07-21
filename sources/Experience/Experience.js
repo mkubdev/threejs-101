@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import GUI from 'lil-gui'
+import { createIcons, Menu, Globe, ArrowRight, Scale3d } from 'lucide';
 
 import Time from './Utils/Time.js'
 import Sizes from './Utils/Sizes.js'
@@ -10,134 +11,146 @@ import Renderer from './Renderer.js'
 import Camera from './Camera.js'
 import World from './World.js'
 
-import {Pane} from 'tweakpane'
+import { Pane } from 'tweakpane'
 
 import assets from './assets.js'
 
 export default class Experience {
-    static instance
+  static instance
 
-    constructor(_options = {}) {
-        if (Experience.instance) {
-            return Experience.instance
-        }
-        Experience.instance = this
+  constructor(_options = {}) {
+    if (Experience.instance) {
+      return Experience.instance
+    }
+    Experience.instance = this
 
-        // Options
-        this.targetElement = _options.targetElement
+    // Options
+    this.targetElement = _options.targetElement
 
-        if (!this.targetElement) {
-            console.warn("Missing 'targetElement' property")
-            return
-        }
-
-        this.time = new Time()
-        this.sizes = new Sizes()
-        this.setConfig()
-        this.setStats()
-        this.setScene()
-        this.setCamera()
-        this.setRenderer()
-        this.setDebug()
-        this.setResources()
-        this.setWorld()
-
-        this.sizes.on('resize', () => {
-            this.resize()
-        })
-
-        this.update()
+    if (!this.targetElement) {
+      console.warn("Missing 'targetElement' property")
+      return
     }
 
-    setConfig() {
-        this.config = {}
+    this.time = new Time()
+    this.sizes = new Sizes()
+    this.setConfig()
+    this.setLucideIcon()
+    this.setStats()
+    this.setScene()
+    this.setCamera()
+    this.setRenderer()
+    this.setDebug()
+    this.setResources()
+    this.setWorld()
 
-        // Debug
-        this.config.debug = window.location.hash === '#debug'
+    this.sizes.on('resize', () => {
+      this.resize()
+    })
 
-        // Pixel ratio
-        this.config.pixelRatio = Math.min(
-            Math.max(window.devicePixelRatio, 1),
-            2
-        )
+    this.update()
+  }
 
-        // Width and height
-        const boundings = this.targetElement.getBoundingClientRect()
-        this.config.width = boundings.width
-        this.config.height = boundings.height || window.innerHeight
+  setConfig () {
+    this.config = {}
+
+    // Debug
+    this.config.debug = window.location.hash === '#debug'
+
+    // Pixel ratio
+    this.config.pixelRatio = Math.min(
+      Math.max(window.devicePixelRatio, 1),
+      2
+    )
+
+    // Width and height
+    const boundings = this.targetElement.getBoundingClientRect()
+    this.config.width = boundings.width
+    this.config.height = boundings.height || window.innerHeight
+  }
+
+  setDebug () {
+    if (this.config.debug) {
+      this.debug = new Pane()
+      this.debug.containerElem_.style.width = '320px'
+      // this.debug.containerElem_.style.zIndex = '1000'
     }
+  }
 
-    setDebug() {
-        if (this.config.debug) {
-            this.debug = new Pane()
-            this.debug.containerElem_.style.width = '320px'
-            // this.debug.containerElem_.style.zIndex = '1000'
-        }
+  setStats () {
+    if (this.config.debug) {
+      this.stats = new Stats(true)
     }
+  }
 
-    setStats() {
-        if (this.config.debug) {
-            this.stats = new Stats(true)
-        }
-    }
+  setScene () {
+    this.scene = new THREE.Scene()
+  }
 
-    setScene() {
-        this.scene = new THREE.Scene()
-    }
+  setCamera () {
+    this.camera = new Camera()
+  }
 
-    setCamera() {
-        this.camera = new Camera()
-    }
+  setRenderer () {
+    this.renderer = new Renderer({
+      rendererInstance: this.rendererInstance
+    })
 
-    setRenderer() {
-        this.renderer = new Renderer({
-            rendererInstance: this.rendererInstance
-        })
+    this.targetElement.appendChild(this.renderer.instance.domElement)
 
-        this.targetElement.appendChild(this.renderer.instance.domElement)
+    this.renderer.outputColorSpace = THREE.LinearSRGBColorSpace
+  }
 
-        this.renderer.outputColorSpace = THREE.LinearSRGBColorSpace
-    }
+  setResources () {
+    this.resources = new Resources(assets)
+  }
 
-    setResources() {
-        this.resources = new Resources(assets)
-    }
+  setWorld () {
+    this.world = new World()
+  }
 
-    setWorld() {
-        this.world = new World()
-    }
+  setLucideIcon () {
+    createIcons({
+      icons: {
+        Menu,
+        ArrowRight,
+        Globe,
+        Scale3d
+      }
+    });
+  }
 
-    update() {
-        if (this.stats) this.stats.update()
+  update () {
+    if (this.stats) this.stats.update()
 
-        this.camera.update()
+    this.camera.update()
 
-        if (this.world) this.world.update()
+    if (this.world) this.world.update()
 
-        if (this.renderer) this.renderer.update()
+    if (this.renderer) this.renderer.update()
 
-        window.requestAnimationFrame(() => {
-            this.update()
-        })
-    }
+    window.requestAnimationFrame(() => {
+      this.update()
+    })
+  }
 
-    resize() {
-        // Config
-        const boundings = this.targetElement.getBoundingClientRect()
-        this.config.width = boundings.width
-        this.config.height = boundings.height
+  resize () {
+    // Config
+    const boundings = this.targetElement.getBoundingClientRect()
+    this.config.width = boundings.width
+    this.config.height = boundings.height
 
-        this.config.pixelRatio = Math.min(
-            Math.max(window.devicePixelRatio, 1),
-            2
-        )
+    this.config.pixelRatio = Math.min(
+      Math.max(window.devicePixelRatio, 1),
+      2
+    )
 
-        if (this.camera) this.camera.resize()
+    if (this.camera) this.camera.resize()
 
-        if (this.renderer) this.renderer.resize()
+    if (this.renderer) this.renderer.resize()
 
-        if (this.world) this.world.resize()
-    }
+    if (this.world) this.world.resize()
+  }
 
-    destroy() {}
+  destroy () { }
 }

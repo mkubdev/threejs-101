@@ -25,6 +25,7 @@
   "dependencies": {
     "gsap": "^3.12.2",
     "lil-gui": "^0.16.1",
+    "lucide": "^0.263.0",
     "stats.js": "^0.17.0",
     "stylus": "^0.58.1",
     "three": "^0.141.0",
