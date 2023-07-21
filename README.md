@@ -2,6 +2,10 @@
 
 🚧 This repos contain threejs experiments.
 
+## Usage
+
+Add `#debug` at the end of the url path to display the GUI.
+
 ## Setup
 Download [Node.js](https://nodejs.org/en/download/).
 Run this followed commands:
