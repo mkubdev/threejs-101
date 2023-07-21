@@ -11,7 +11,7 @@ export default class TrioShadow {
     this.scene = this.experience.scene
 
     this.setPlane()
-    this.setGroup();
+    this.setGroup()
     this.setMaterial()
     this.setLights()
     this.setMesh()
@@ -66,16 +66,6 @@ export default class TrioShadow {
   }
 
   setMaterial () {
-    this.material = new THREE.MeshStandardMaterial({
-      map: this.texture.bronzeColor,        // Base color texture
-      bumpMap: this.texture.bronzeBump16Bit,    // Bump texture
-      displacementMap: this.texture.bronzeDisplacement,
-      metalnessMap: this.texture.bronzeMetalness,
-      normalMap: this.texture.bronzeNormal,
-      roughnessMap: this.texture.bronzeRoughness,
-      metalness: 0.8,
-    })
-
     this.planMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 0.5, roughness: 0.4 });
   }
 
@@ -239,6 +229,11 @@ export default class TrioShadow {
       .addButton({ title: 'Spin 💣' })
       .on('click', PARAMS.spin)
   }
+
+  /**
+   * Set the loading manager for the textures
+   * @returns {Promise<void>}
+   */
 
 
   /**
