@@ -231,7 +231,7 @@ export default class TrioShadow {
           ease: 'none'
         })
       } else {
-        gsap.killTweensOf(this.mesh.rotation)
+        gsap.killTweensOf(this.group.rotation)
       }
     });
 
