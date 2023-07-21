@@ -1,10 +1,10 @@
 import * as THREE from 'three'
 import Experience from './Experience.js'
 import Gradient from './Gradient.js'
-import Base from './Base.js'
 import Wood from './Wood.js'
 import Marble from './Marble.js'
 import Bronze from './Bronze.js'
+import TrioShadow from './TrioShadow.js'
 
 export default class World {
   constructor(_options) {
@@ -13,13 +13,27 @@ export default class World {
     this.scene = this.experience.scene
     this.resources = this.experience.resources
 
+    // ?? not sure of this implementation..
+    this.setNavigation();
+
+    // this.resources.on('groupEnd', _group => {
+    //   if (_group.name === 'base') {
+    //     this.setBronze()
+    //   }
+    // })
+  }
+
+  switchExperience () {
+    const pathname = window.location.pathname
+
+    // Set a new experience based on the pathname
     this.resources.on('groupEnd', _group => {
       if (_group.name === 'base') {
-        // this.setGradient()
-        // this.setBase()
-        // this.setWood()
-        // this.setMarble()
-        this.setBronze()
+        if (pathname === '/') {
+          this.setBronze();
+        } else if (pathname === '/shadow') {
+          this.setTrioShadow();
+        }
       }
     })
   }
@@ -28,8 +42,8 @@ export default class World {
     this.gradient = new Gradient()
   }
 
-  setBase () {
-    this.base = new Base()
+  setTrioShadow () {
+    this.trioShadow = new TrioShadow()
   }
 
   setWood () {
@@ -45,12 +59,14 @@ export default class World {
   }
 
   setNavigation () {
-    // todo: this.navigation = new Navigation()
+    this.switchExperience();
   }
 
   resize () { }
 
   update () { }
 
-  destroy () { }
+  destroy () {
+
+  }
 }

@@ -105,8 +105,7 @@ export default class Wood {
   }
 
   setMaterial () {
-    // this.material = new THREE.MeshBasicMaterial({ wireframe: true, color: this.colors.value, map: this.texture });
-    // this.material = new THREE.MeshBasicMaterial({ map: this.texture.waffleColor });
+
     this.material = new THREE.MeshStandardMaterial({
       map: this.texture.woodColor,
       aoMap: this.texture.woodAmbientOcclusion,
