@@ -230,6 +230,8 @@ export default class TrioShadow {
           repeat: -1,
           ease: 'none'
         })
+      } else {
+        gsap.killTweensOf(this.mesh.rotation)
       }
     });
 
