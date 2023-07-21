@@ -12,7 +12,6 @@ export default class TrioShadow {
 
     this.setPlane()
     this.setGroup();
-    this.setLoadingManager()
     this.setMaterial()
     this.setLights()
     this.setMesh()
@@ -241,58 +240,6 @@ export default class TrioShadow {
       .on('click', PARAMS.spin)
   }
 
-  /**
-   * Set the loading manager for the textures
-   * @returns {Promise<void>}
-   */
-  setLoadingManager () {
-    const loadingManager = new THREE.LoadingManager()
-    loadingManager.onStart = () => {
-      console.log('loading started')
-    }
-    loadingManager.onLoad = () => {
-      console.log('loading finished')
-    }
-    loadingManager.onProgress = () => {
-      console.log('loading progressing')
-    }
-    loadingManager.onError = () => {
-      console.log('loading error')
-    }
-
-    this.texture = {}
-    const textureLoader = new THREE.TextureLoader(loadingManager)
-    this.texture.bronzeColor = textureLoader.load(
-      '/assets/textures/bronze/baseColor.png'
-    )
-    this.texture.bronzeBump = textureLoader.load(
-      '/assets/textures/bronze/bump.png'
-    )
-    this.texture.bronzeBump16Bit = textureLoader.load(
-      '/assets/textures/bronze/bump16bit.png'
-    )
-
-    this.texture.bronzeDisplacement = textureLoader.load(
-      '/assets/textures/bronze/displacement.png'
-    )
-    this.texture.bronzeDisplacement16Bit = textureLoader.load(
-      '/assets/textures/bronze/displacement16bit.png'
-    )
-    this.texture.bronzeMetalness = textureLoader.load(
-      '/assets/textures/bronze/metalness.png'
-    )
-    this.texture.bronzeNormal = textureLoader.load(
-      '/assets/textures/bronze/normal.png'
-    )
-    this.texture.bronzeRoughness = textureLoader.load(
-      '/assets/textures/bronze/roughness.png'
-    )
-
-    // this.texture.bronzeColor.wrapS = THREE.RepeatWrapping
-    // this.texture.bronzeColor.wrapT = THREE.RepeatWrapping
-
-    // this.texture.woodColor.repeat.set(2, 2)
-  }
 
   /**
    * Update the material
