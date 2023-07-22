@@ -75,7 +75,7 @@ export default class Watermelon {
   }
 
   setMaterial () {
-    this.planMaterial = new THREE.MeshStandardMaterial({ color: 0x191d21, metalness: 0.8, roughness: 0.1 });
+    this.planMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 0.3, roughness: 0.3 });
   }
 
   setMesh () {
@@ -105,31 +105,28 @@ export default class Watermelon {
     this.scene.add(this.lights.spotLight)
     this.scene.add(this.lights.spotLight.target)
 
-    this.lights.spotlightTop = new THREE.SpotLight(0xffffff, 5);
-    // position the light above the model
-    this.lights.spotlightTop.position.set(0, 5, 0);
-    this.lights.spotlightTop.angle = Math.PI / 4;
-    this.lights.spotlightTop.penumbra = 0.1;
-    this.lights.spotlightTop.decay = 2;
-    this.lights.spotlightTop.distance = 200;
-    this.lights.spotlightTop.castShadow = true;
-    this.scene.add(this.lights.spotlightTop);
 
     // Ambient light
     this.lights.ambientLight = new THREE.AmbientLight(0xef456f, 0.7);
     this.scene.add(this.lights.ambientLight);
 
+    // SQUARE AREA LIGHT
     this.lights.areaLight = new THREE.RectAreaLight(0xffffff, 1, 5, 5);
     this.lights.areaLight.position.set(0, 4, 0);
     this.lights.areaLight.rotation.x = -Math.PI / 2;
     this.scene.add(this.lights.areaLight);
 
     // Directional light
-    this.lights.directionalLight = new THREE.DirectionalLight(0xef456f, 0.9);
+    this.lights.directionalLight = new THREE.DirectionalLight(0xe24068, 0.9);
     this.lights.directionalLight.position.set(2, 2, -1);
     this.scene.add(this.lights.directionalLight);
 
+    this.lights.directionalLight2 = new THREE.DirectionalLight(0xef456f, 0.9);
+    this.lights.directionalLight2.position.set(-2, 5, 2, -1);
+    this.scene.add(this.lights.directionalLight2);
+
     this.lights.directionalLight.castShadow = true;
+    this.lights.directionalLight2.castShadow = true;
   }
 
 
@@ -147,7 +144,10 @@ export default class Watermelon {
       x: this.lights.directionalLight.position.x,
       y: this.lights.directionalLight.position.y,
       z: this.lights.directionalLight.position.z,
+      aeraLightIntensity: this.lights.areaLight.intensity,
 
+      // Colors
+      planeColor: '0xffffff',
       // Animation
       stopAnimation: () => {
         if (this.animations.mixer) {
@@ -165,11 +165,31 @@ export default class Watermelon {
       }
     }
 
+    // == COLORS ==
+    const colorsFolder = this.experience.debug.addFolder({
+      title: 'Colors',
+      expanded: true,
+    })
+
+    colorsFolder.addInput(PARAMS, 'planeColor').on('change', _event => {
+      this.planMaterial.color.set(_event.value)
+    })
+
+
     // === LIGHTS FOLDER ===
     const lightsFolder = this.experience.debug.addFolder({
       title: 'Lights',
       expanded: true,
     })
+
+    lightsFolder.addInput(PARAMS, 'aeraLightIntensity', {
+      min: 0,
+      max: 5,
+      step: 0.001
+    }).on('change', _event => {
+      this.lights.areaLight.intensity = _event.value
+    })
+
 
     lightsFolder.addInput(PARAMS, 'ambientLightIntensity', {
       min: 0,
