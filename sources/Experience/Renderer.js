@@ -54,6 +54,8 @@ export default class Renderer {
     this.instance.toneMapping = THREE.NoToneMapping
     this.instance.toneMappingExposure = 1
 
+    this.instance.outputColorSpace = THREE.LinearSRGBColorSpace
+
     this.context = this.instance.getContext()
 
     // Add stats panel
