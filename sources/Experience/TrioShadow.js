@@ -1,9 +1,12 @@
 import { gsap } from 'gsap'
 import * as THREE from 'three'
 import Experience from './Experience.js'
-import { ceilPowerOfTwo } from 'three/src/math/MathUtils.js'
 
 
+
+/**
+ * This experience focus on group lights and shadows.
+ */
 export default class TrioShadow {
   constructor() {
     console.log('TrioShadow')

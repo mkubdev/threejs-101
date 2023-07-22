@@ -1,10 +1,12 @@
 import { gsap } from 'gsap'
 import * as THREE from 'three'
 import Experience from './Experience.js'
-import { ceilPowerOfTwo } from 'three/src/math/MathUtils.js'
-import { Cpu } from 'lucide'
 
 
+/**
+ * This experience focus on how to load a .gltf model and animate it.
+ * I'm using a sketchfab model: https://sketchfab.com/3d-models/jiggly-watermelon-jello-c15e41a62b46487fa6dcc67af7f7acee
+ */
 export default class Watermelon {
   constructor() {
     console.log('Watermelon')
@@ -27,7 +29,6 @@ export default class Watermelon {
 
   /**
    * Jiggly Watermelon Jello model
-   * sktechfab: https://sketchfab.com/3d-models/jiggly-watermelon-jello-c15e41a62b46487fa6dcc67af7f7acee
    */
   setModel () {
     this.model = {}

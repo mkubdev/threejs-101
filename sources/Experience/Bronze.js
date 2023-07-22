@@ -2,7 +2,9 @@ import { gsap } from 'gsap'
 import * as THREE from 'three'
 import Experience from './Experience.js'
 
-
+/**
+ * This experience focus on materials import and use.
+ */
 export default class Bronze {
   constructor() {
     console.log('Bronze')
