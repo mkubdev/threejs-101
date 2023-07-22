@@ -136,7 +136,7 @@ export default class TrioShadow {
           y: this.group.rotation.y + Math.PI * 2
         })
       },
-      autorotate: false,
+      autorotate: true,
     }
 
     // === LIGHTS FOLDER ===
@@ -241,5 +241,11 @@ export default class TrioShadow {
    *
    */
   update () {
+    gsap.to(this.group.rotation, {
+      duration: 8,
+      y: this.group.rotation.y + Math.PI * 2,
+      repeat: -1,
+      ease: 'none'
+    })
   }
 }

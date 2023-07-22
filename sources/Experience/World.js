@@ -5,6 +5,7 @@ import Wood from './Wood.js'
 import Marble from './Marble.js'
 import Bronze from './Bronze.js'
 import TrioShadow from './TrioShadow.js'
+import Watermelon from './Watermelon.js'
 
 export default class World {
   constructor(_options) {
@@ -29,15 +30,28 @@ export default class World {
     // Set a new experience based on the pathname
     this.resources.on('groupEnd', _group => {
       if (_group.name === 'base') {
-        if (pathname === '/') {
-          this.setBronze();
-        } else if (pathname === '/shadow') {
-          this.setTrioShadow();
+        switch (pathname) {
+          case '/':
+            this.setBronze();
+            break;
+          case '/shadow':
+            this.setTrioShadow();
+            break;
+          case '/watermelon':
+            this.setWatermelon();
+            break;
+          default:
+            this.setBronze();
         }
       }
     })
   }
 
+  setBronze () {
+    this.bronze = new Bronze()
+  }
+
+  // WIP
   setGradient () {
     this.gradient = new Gradient()
   }
@@ -46,16 +60,8 @@ export default class World {
     this.trioShadow = new TrioShadow()
   }
 
-  setWood () {
-    this.wood = new Wood()
-  }
-
-  setMarble () {
-    this.marble = new Marble()
-  }
-
-  setBronze () {
-    this.bronze = new Bronze()
+  setWatermelon () {
+    this.watermelon = new Watermelon()
   }
 
   setNavigation () {
@@ -64,7 +70,15 @@ export default class World {
 
   resize () { }
 
-  update () { }
+  update () {
+
+    if (this.trioShadow)
+      this.trioShadow.update()
+    if (this.watermelon) {
+      this.watermelon.update()
+    }
+
+  }
 
   destroy () {
 
