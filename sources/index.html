@@ -24,6 +24,8 @@
         watermelon
       </a>
     </div>
+    <a href="#debug" id="enableDebugLink" class="hover:text-gray-400">
+      enable debug</a>
     <a href="https://github.com/mkubdev/threejs-101" target="_blank" rel="noopener noreferrer"
       class="hover:text-gray-400">
       @mkubdev
@@ -31,6 +33,16 @@
   </div>
 
   <script type="module" src="./index.js"></script>
+  <script>
+    // JavaScript function to reload the page with #debug at the end of the URL
+    function reloadPageWithDebug () {
+      window.location.href += "#debug";
+      window.location.reload();
+    }
+
+    // Add a click event listener to the "enable debug" link
+    document.getElementById("enableDebugLink").addEventListener("click", reloadPageWithDebug);
+  </script>
 </body>
 
 </html>
