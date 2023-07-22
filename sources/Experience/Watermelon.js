@@ -47,7 +47,7 @@ export default class Watermelon {
         if (node.material instanceof THREE.MeshStandardMaterial) {
           console.log("node.material =>", node.material)
           if (node.material.name == "Pink") {
-            node.material.transparent = true;
+            // node.material.transparent = true;
             node.material.opacity = 1;
             node.material.roughness = 0.5;
           }
